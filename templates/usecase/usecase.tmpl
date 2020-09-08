@@ -3,8 +3,8 @@ package usecase
 import (
     "context"
 
-    {{ .Model }}M "dogen/{{ .Dist }}/domain/model"
-    {{ .Model }}R "dogen/{{ .Dist }}/domain/repository"
+    {{ .Model }}M "{{ .Root }}/{{ .Dist }}/domain/model"
+    {{ .Model }}R "{{ .Root }}/{{ .Dist }}/domain/repository"
 )
 
 type {{ .Model | title }}UseCase interface {

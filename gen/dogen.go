@@ -32,6 +32,7 @@ type Dogen struct {
 type Params struct {
 	Dist  string
 	Model string
+	Root  string
 }
 
 func fill(args []string, outStream, errStream io.Writer) (*Dogen, error) {
@@ -98,10 +99,16 @@ func fill(args []string, outStream, errStream io.Writer) (*Dogen, error) {
 		return nil, err
 	}
 
+	// カレントディレクトリの名前取得
+	p, _ := os.Getwd()
+	r := strings.Split(p, "/")
+	root := r[len(r)-1]
+
 	dogen := &Dogen{
 		params: Params{
 			Dist:  d,
 			Model: m,
+			Root:  root,
 		},
 		dir:       dir,
 		template:  t,
