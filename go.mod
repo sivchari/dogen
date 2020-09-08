@@ -2,4 +2,4 @@ module dogen
 
 go 1.15
 
-require go.uber.org/zap v1.16.0
+require github.com/kyokomi/emoji v2.2.4+incompatible
