@@ -3,7 +3,7 @@ package handler
 import (
     "net/http"
 
-    {{ .Model }}U "dogen/{{ .Dist }}/usecase"
+    {{ .Model }}U "{{ .Root }}/{{ .Dist }}/usecase"
 )
 
 type {{ .Model | title }}Handler interface {
