@@ -17,6 +17,6 @@ func main() {
 		os.Exit(2)
 	}
 	emoji := emoji.Sprint(":lollipop:")
-	log.Println(os.Args[0] + " successfully! ʕ◔ϖ◔ʔ " + emoji)
+	log.Println(os.Args[0] + " ʕ◔ϖ◔ʔ " + emoji)
 	os.Exit(0)
 }

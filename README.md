@@ -37,6 +37,16 @@ dogen
 # Features
  
 With dogen, you can focus on your development and not get tired of creating, copying and pasting directories.
+
+# Install
+
+```
+
+go get github.com/golang/mock/gomock
+go get github.com/golang/mock/mockgen
+
+```
+
  
 # Usage
 
