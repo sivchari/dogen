@@ -135,7 +135,6 @@ func (dogen *Dogen) buildFileName(base string) string {
 }
 
 func (dogen *Dogen) walk(path string, info os.FileInfo, err error) error {
-	// templateとwalk対象のパス差分取得
 	p, err := filepath.Rel(dogen.template, path)
 	if err != nil {
 		return err
