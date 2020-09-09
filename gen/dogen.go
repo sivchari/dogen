@@ -55,12 +55,12 @@ func fill(args []string, outStream, errStream io.Writer) (*Dogen, error) {
 	tmplDescribe := "templates directory"
 	flags.StringVar(&t, "tmpl", "", tmplDescribe)
 	// 指定なしで./templates指定
-	flags.StringVar(&t, "t", "./templates", tmplDescribe)
+	flags.StringVar(&t, "t", "templates", tmplDescribe)
 
 	dirDescribe := "output directory"
 	flags.StringVar(&d, "dir", "", dirDescribe)
 	// 指定なしでcurrent dirに生成
-	flags.StringVar(&d, "d", "./pkg", dirDescribe)
+	flags.StringVar(&d, "d", "pkg", dirDescribe)
 
 	// dogen optionのパース
 	if err := flags.Parse(args[1:]); err != nil {
