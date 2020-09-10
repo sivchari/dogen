@@ -62,7 +62,7 @@ go get github.com/golang/mock/mockgen
 
 # Options
 
-![スクリーンショット 2020-09-08 19 21 39](https://user-images.githubusercontent.com/55221074/92465051-0c1bd700-f209-11ea-9205-e03a97c02241.png)
+![スクリーンショット 2020-09-11 8 04 44](https://user-images.githubusercontent.com/55221074/92820925-7a2ced80-f405-11ea-9470-ad9eae713d95.png)
  
 # Author
  
