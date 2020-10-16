@@ -1,0 +1,59 @@
+//go:generate mockgen -source=$GOFILE -destination=mock_$GOPACKAGE/mock_$GOFILE  
+package handler
+
+import (
+    "net/http"
+
+    {{ .Model }}U "{{ .Root }}/{{ .Dist }}/usecase"
+    "github.com/labstack/echo"
+)
+
+type {{ .Model | title }}Handler interface {
+    HandleSelect() echo.HandlerFunc
+    HandleInsert() echo.HandlerFunc
+    HandleUpdate() echo.HandlerFunc
+    HandleDelete() echo.HandlerFunc
+}
+
+type {{ .Model }}Handler struct {
+    {{ .Model }}UseCase {{ .Model }}U.{{ .Model | title }}UseCase
+}
+
+// New{{ .Model | title }}Handler
+func New{{ .Model | title }}Handler({{ .Model }}U {{ .Model }}U.{{ .Model | title }}UseCase) {{ .Model | title }}Handler {
+    return &{{ .Model }}Handler {
+        {{ .Model }}UseCase: {{ .Model }}U,
+    }
+}
+
+// HandleSelect
+func ({{ .Model }}H {{ .Model }}Handler) HandleSelect() echo.HandlerFunc {
+    return func(c echo.Context) error {
+
+    }
+}
+
+// HandleInsert
+func ({{ .Model }}H {{ .Model }}Handler) HandleInsert() echo.HandlerFunc {
+    return func(c echo.Context) error {
+
+    }
+}
+
+// HandleUpdate
+func ({{ .Model }}H {{ .Model }}Handler) HandleUpdate() echo.HandlerFunc {
+    return func(c echo.Context) error {
+
+    }
+}
+
+// HandleDelete
+func ({{ .Model }}H {{ .Model }}Handler) HandleDelete() echo.HandlerFunc {
+    return func(c echo.Context) error {
+
+    }
+}
+
+type {{ .Model | title }} struct {
+    // Need to implement field
+}

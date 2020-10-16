@@ -1,0 +1,75 @@
+//go:generate mockgen -source=$GOFILE -destination=mock_$GOPACKAGE/mock_$GOFILE  
+package repoimpl
+
+import (
+    "context"
+    "database/sql"
+
+    {{ .Model }}M "{{ .Root }}/{{ .Dist }}/domain/model"
+    {{ .Model }}R "{{ .Root }}/{{ .Dist }}/domain/repository"
+)
+
+type {{ .Model }}RepoImpl struct{
+    db *sql.DB
+}
+
+func New{{ .Model | title }}RepoImpl(db *sql.DB) {{ .Model }}R.{{ .Model | title }}Repository {
+    return &{{ .Model }}RepoImpl {
+        db,
+    }
+}
+
+// Select
+func ({{ .Model }}RepoImpl {{ .Model }}RepoImpl) Select(ctx context.Context) (*{{ .Model }}M.{{ .Model | title }}, error) {
+    // rows, err := {{ .Model }}I.db.Query("SELECT * FROM {{ .Model }}")
+    if err != nil {
+        return err
+    }
+    return convertTo{{ .Model | title }}(rows)
+}
+
+// Insert
+func ({{ .Model }}RepoImpl {{ .Model }}RepoImpl) Insert(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error {
+    // stmt, err := {{ .Model }}I.db.Prepare("INSERT INTO {{ .Model }} () VALUES ())
+    if err != nil {
+        return err
+    }
+    _, err := stmt.Exec()
+    return err
+}
+
+// Update
+func ({{ .Model }}RepoImpl {{ .Model }}RepoImpl) Update(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error {
+    // stmt, err := {{ .Model }}I.db.Prepare("UPDATE {{ .Model }} SET WHERE ")
+    if err != nil {
+        return err
+    }
+    _, err := stmt.Exec()
+    return err
+}
+
+// Delete
+func ({{ .Model }}RepoImpl {{ .Model }}RepoImpl) Delete(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error {
+    // stmt, err := {{ .Model }}I.db.Prepare("DELETE FROM {{ .Model }} WHERE ")
+    if err != nil {
+        return err
+    }
+    _, err := stmt.Exec()
+    return err
+}
+
+// convertTo{{ .Model | title }}
+func convertTo{{ .Model | title }}(rows *sql.Rows) (*{{ .Model }}M.{{ .Model | title }}, error) {
+    var {{ .Model }}s []{{ .Model }}M.{{ .Model | title }}
+    for rows.Next() {
+        var {{ .Model }} {{ .Model }}M.{{ .Model | title }}
+        err := rows.Scan(
+            // Need to scan field
+        )
+        if err != nil {
+            return err
+        }
+        {{ .Model }}s = append({{ .Model }}s, {{ .Model }})
+    }
+    return &{{ .Model }}s, nil
+}

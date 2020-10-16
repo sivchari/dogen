@@ -54,8 +54,8 @@ func fill(args []string, outStream, errStream io.Writer) (*Dogen, error) {
 
 	tmplDescribe := "templates directory"
 	flags.StringVar(&t, "tmpl", "", tmplDescribe)
-	// 指定なしで./templates指定
-	flags.StringVar(&t, "t", "templates", tmplDescribe)
+	// 指定なしで./pure指定
+	flags.StringVar(&t, "t", "pure", tmplDescribe)
 
 	dirDescribe := "output directory"
 	flags.StringVar(&d, "dir", "", dirDescribe)

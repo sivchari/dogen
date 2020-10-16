@@ -1,0 +1,15 @@
+//go:generate mockgen -source=$GOFILE -destination=mock_$GOPACKAGE/mock_$GOFILE
+package repository
+
+import(
+    "context"
+
+    {{ .Model }}M "{{ .Root }}/{{ .Dist }}/domain/model"
+)
+
+type {{ .Model | title }}Repository interface {
+    Select(ctx context.Context) (*{{ .Model }}M.{{ .Model | title }}, error)
+    Insert(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error
+    Update(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error
+    Delete(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error
+}

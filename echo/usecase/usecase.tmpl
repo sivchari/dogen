@@ -1,0 +1,65 @@
+//go:generate mockgen -source=$GOFILE -destination=mock_$GOPACKAGE/mock_$GOFILE  
+package usecase
+
+import (
+    "context"
+
+    {{ .Model }}M "{{ .Root }}/{{ .Dist }}/domain/model"
+    {{ .Model }}R "{{ .Root }}/{{ .Dist }}/domain/repository"
+)
+
+type {{ .Model | title }}UseCase interface {
+    Select(ctx context.Context) (*{{ .Model }}M.{{ .Model | title }}, error)
+    Insert(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error
+    Update(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error
+    Delete(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error
+}
+
+type {{ .Model }}UseCase struct {
+    {{ .Model }}Repository {{ .Model }}R.{{ .Model | title }}Repository
+}
+
+// New{{ .Model | title }}Usecase
+func New{{ .Model | title }}Usecase({{ .Model }}R {{ .Model }}R.{{ .Model | title }}Repository) {{ .Model | title }}UseCase {
+    return &{{ .Model }}UseCase{
+        {{ .Model }}Repository: {{ .Model }}R,
+    }
+}
+
+
+// Select
+func ({{ .Model }}U {{ .Model }}UseCase) Select(ctx context.Context) (*{{ .Model }}M.{{ .Model | title }}, error) {
+    {{ .Model }}s, err := {{ .Model }}U.{{ .Model }}Repository.Select(ctx)
+    if err != nil {
+      return nil, err
+    }
+    return {{ .Model }}s, nil
+}
+
+// Insert
+func ({{ .Model }}U {{ .Model }}UseCase) Insert(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error {
+    err := {{ .Model }}U.{{ .Model }}Repository.Insert(ctx, entity)
+    if err != nil {
+      return err
+    }
+    return nil
+}
+
+// Update
+func ({{ .Model }}U {{ .Model }}UseCase) Update(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error {
+    err := {{ .Model }}U.{{ .Model }}Repository.Update(ctx, entity)
+    if err != nil {
+      return err
+    }
+    return nil
+}
+
+// Delete
+func ({{ .Model }}U {{ .Model }}UseCase) Delete(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error {
+    err := {{ .Model }}U.{{ .Model }}Repository.Delete(ctx, entity)
+    if err != nil {
+      return err
+    }
+    return nil
+}
+
