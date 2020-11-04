@@ -59,7 +59,7 @@ func ({{ .Model }}RepoImpl {{ .Model }}RepoImpl) Delete(ctx context.Context, ent
 }
 
 // convertTo{{ .Model | title }}
-func convertTo{{ .Model | title }}(rows *sql.Rows) (*{{ .Model }}M.{{ .Model | title }}, error) {
+func convertTo{{ .Model | title }}(rows *sql.Rows) ([]{{ .Model }}M.{{ .Model | title }}, error) {
     var {{ .Model }}s []{{ .Model }}M.{{ .Model | title }}
     for rows.Next() {
         var {{ .Model }} {{ .Model }}M.{{ .Model | title }}

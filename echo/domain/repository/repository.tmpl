@@ -8,7 +8,7 @@ import(
 )
 
 type {{ .Model | title }}Repository interface {
-    Select(ctx context.Context) (*{{ .Model }}M.{{ .Model | title }}, error)
+    Select(ctx context.Context) ([]{{ .Model }}M.{{ .Model | title }}, error)
     Insert(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error
     Update(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error
     Delete(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error
