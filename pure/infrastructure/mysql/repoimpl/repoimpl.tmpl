@@ -29,7 +29,7 @@ func ({{ .Model }}I {{ .Model }}RepoImpl) Select(ctx context.Context) (*{{ .Mode
 }
 
 // Insert
-func ({{ .Model }}RepoImpl {{ .Model }}RepoImpl) Insert(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error {
+func ({{ .Model }}I {{ .Model }}RepoImpl) Insert(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error {
     // stmt, err := {{ .Model }}I.db.Prepare("INSERT INTO {{ .Model }} () VALUES ())
     if err != nil {
         return err
@@ -39,7 +39,7 @@ func ({{ .Model }}RepoImpl {{ .Model }}RepoImpl) Insert(ctx context.Context, ent
 }
 
 // Update
-func ({{ .Model }}RepoImpl {{ .Model }}RepoImpl) Update(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error {
+func ({{ .Model }}I {{ .Model }}RepoImpl) Update(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error {
     // stmt, err := {{ .Model }}I.db.Prepare("UPDATE {{ .Model }} SET WHERE ")
     if err != nil {
         return err
@@ -49,7 +49,7 @@ func ({{ .Model }}RepoImpl {{ .Model }}RepoImpl) Update(ctx context.Context, ent
 }
 
 // Delete
-func ({{ .Model }}RepoImpl {{ .Model }}RepoImpl) Delete(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error {
+func ({{ .Model }}I {{ .Model }}RepoImpl) Delete(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error {
     // stmt, err := {{ .Model }}I.db.Prepare("DELETE FROM {{ .Model }} WHERE ")
     if err != nil {
         return err
