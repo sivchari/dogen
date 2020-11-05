@@ -20,7 +20,7 @@ func New{{ .Model | title }}RepoImpl(db *sql.DB) {{ .Model }}R.{{ .Model | title
 }
 
 // Select
-func ({{ .Model }}I {{ .Model }}RepoImpl) Select(ctx context.Context) (*{{ .Model }}M.{{ .Model | title }}, error) {
+func ({{ .Model }}I {{ .Model }}RepoImpl) Select(ctx context.Context) ([]{{ .Model }}M.{{ .Model | title }}, error) {
     // rows, err := {{ .Model }}I.db.Query("SELECT * FROM {{ .Model }}")
     if err != nil {
         return err
