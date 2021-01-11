@@ -21,7 +21,7 @@ dogen
 │   │       └── handler.tmpl
 │   └── usecase
 │       └── usecase.tmpl
-├── gen
+├── dogen
 │   └── dogen.go
 ├── go.mod
 ├── go.sum
