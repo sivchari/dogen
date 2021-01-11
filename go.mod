@@ -1,5 +1,8 @@
-module dogen
+module github.com/sivchari/dogen.git
 
 go 1.15
 
-require github.com/kyokomi/emoji v2.2.4+incompatible
+require (
+	github.com/rakyll/statik v0.1.7
+	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
+)

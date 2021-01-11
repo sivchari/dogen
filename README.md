@@ -6,12 +6,27 @@ dogen
 .
 ├── LICENCE
 ├── README.md
+├── echo
+│   ├── domain
+│   │   ├── model
+│   │   │   └── model.tmpl
+│   │   └── repository
+│   │       └── repository.tmpl
+│   ├── infrastructure
+│   │   └── mysql
+│   │       └── repoimpl
+│   │           └── repoimpl.tmpl
+│   ├── interfaces
+│   │   └── handler
+│   │       └── handler.tmpl
+│   └── usecase
+│       └── usecase.tmpl
 ├── gen
 │   └── dogen.go
 ├── go.mod
 ├── go.sum
 ├── main.go
-└── templates
+└── pure
     ├── domain
     │   ├── model
     │   │   └── model.tmpl
@@ -28,46 +43,97 @@ dogen
         └── usecase.tmpl
 ```
  
-# DEMO
- 
-
-![スクリーンショット 2020-09-08 19 21 58](https://user-images.githubusercontent.com/55221074/92464937-decf2900-f208-11ea-9142-37f74d58c914.png)
-
  
 # Features
- 
 With dogen, you can focus on your development and not get tired of creating, copying and pasting directories.
 
 # Install
+```
+1. 
+go get -u https://github.com/sivchari/dogen
 
+2.
+go get -u github.com/golang/mock/gomock
+go get -u github.com/golang/mock/mockgen
+go get -u github.com/rakyll/statik
+
+OR
+
+go get -u all
+
+3.
+edit dogen/dogen.go
+
+Engine = "pure" OR Engine = "echo" (Default is pure.)
+
+4.
+statik -src=pure OR statik -src=echo (Please match the engine you selected.)
+
+5. 
+go build -o dogen
 ```
 
-go get github.com/golang/mock/gomock
-go get github.com/golang/mock/mockgen
-
-```
-
- 
 # Usage
-
  ``` command line
-
- dogen -m foo -t bar -d baz
- 
+ dogen -m XXX
  ```
 
-# Note
+# Example
+```
+dogen -u model -d pkg  
 
+.
+├── dogen
+└── pkg
+    ├── domain
+    │   ├── model
+    │   │   └── user_model.go
+    │   └── repository
+    │       └── user_repository.go
+    ├── infrastructure
+    │   └── mysql
+    │       └── repoimpl
+    │           └── user_repoimpl.go
+    ├── interfaces
+    │   └── handler
+    │       └── user_handler.go
+    └── usecase
+        └── user_usecase.go
+
+```
+
+# Note
 ・ Only ".tmpl" template is supported.
 
 # Options
+```
+Usage of dogen:
+  -d string
+        output directory (default "pkg")
+  -dir string
+        output directory
+  -m string
+        model name
+  -model string
+        model name
+  -v    print dogen version information
+  -version
+        print dogen version information
+ʕ◔ϖ◔ʔ 🍭 
+```
 
-![スクリーンショット 2020-09-11 8 04 44](https://user-images.githubusercontent.com/55221074/92820925-7a2ced80-f405-11ea-9470-ad9eae713d95.png)
+#benchmark
+### CPU : 4
+```
+BenchmarkRunSynchronous-4                   336                   3894149 ns/op          361212 B/op       6177 allocs/op
+BenchmarkRunAsynchronousGoroutine-4         1292509               916 ns/op              208 B/op          2 allocs/op
+```
+
  
 # Author
- 
-* sivchari
+
+##sivchari
+## [Twitter](https://twitter.com/sivchari)
  
 # License
-
 This software is released under the MIT License, see LICENSE.
