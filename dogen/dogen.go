@@ -6,8 +6,6 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"github.com/rakyll/statik/fs"
-	_ "github.com/sivchari/dogen.git/statik"
 	"go/format"
 	"golang.org/x/sync/errgroup"
 	"io"
@@ -15,10 +13,12 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"runtime"
 	"strings"
 	"sync"
 	"text/template"
+
+	"github.com/rakyll/statik/fs"
+	_ "github.com/sivchari/dogen.git/statik"
 )
 
 // dogen Version
@@ -58,8 +58,8 @@ func Run(args []string, outStream io.Writer, errStream io.Writer) error {
 	if err != nil {
 		return err
 	}
-	runtime.GOMAXPROCS(runtime.NumCPU())
 	eg, ctx := errgroup.WithContext(context.Background())
+loop:
 	for {
 		eg.Go(func() error {
 			dogen := dogen
@@ -75,9 +75,8 @@ func Run(args []string, outStream io.Writer, errStream io.Writer) error {
 				return nil
 			}
 		})
-		goto Done
+		break loop
 	}
-Done:
 	if err := eg.Wait(); err != nil {
 		log.Print(err)
 	}
