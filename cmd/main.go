@@ -13,8 +13,8 @@ func main() {
 	err := dogen.Run(os.Args, os.Stdout, os.Stderr)
 	if err != nil && err != flag.ErrHelp && err != dogen.ShowVersion {
 		log.Println(err)
-		os.Exit(1)
+		os.Exit(2)
 	}
 	log.Println(os.Args[0] + " ʕ◔ϖ◔ʔ ")
-	os.Exit(0)
+	os.Exit(1)
 }
