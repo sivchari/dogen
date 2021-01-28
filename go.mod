@@ -1,4 +1,4 @@
-module github.com/sivchari/dogen.git
+module github.com/sivchari/dogen
 
 go 1.15
 
