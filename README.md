@@ -50,7 +50,7 @@ With dogen, you can focus on your development and not get tired of creating, cop
 # Install
 ```
 1. 
-go get -u https://github.com/sivchari/dogen
+go get -u github.com/sivchari/dogen
 
 2.
 go get -u github.com/golang/mock/gomock
