@@ -18,11 +18,11 @@ import (
 	"text/template"
 
 	"github.com/rakyll/statik/fs"
-	_ "github.com/sivchari/dogen.git/statik"
+	_ "github.com/sivchari/dogen/statik"
 )
 
 // dogen Version
-const Version = "v1.0"
+const Version = "v1.3"
 
 // ShowVersion returns when set version flag.
 var ShowVersion = errors.New("show version")

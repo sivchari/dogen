@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/sivchari/dogen.git/dogen"
+	"github.com/sivchari/dogen/dogen"
 )
 
 func main() {
