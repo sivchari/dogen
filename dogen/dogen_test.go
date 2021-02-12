@@ -9,6 +9,7 @@ import (
 	"testing"
 )
 
+// FIXME::templateのパスはテストするなら修正必要　
 func BenchmarkRunSynchronous(b *testing.B) {
 	d := dogen{
 		params: params{
@@ -17,7 +18,7 @@ func BenchmarkRunSynchronous(b *testing.B) {
 			Pkg:  "dogen",
 		},
 		dir:      "./testdata/once_pkg",
-		template: "/Users/pc-351/workspace/go/dogen/pure",
+		template: "/hoge/go/dogen/pure",
 		mu:       sync.Mutex{},
 	}
 	//最初に長さを決める
@@ -40,7 +41,7 @@ func BenchmarkRunAsynchronousGoroutine(b *testing.B) {
 			Pkg:  "dogen",
 		},
 		dir:      "./testdata/routine_pkg",
-		template: "/Users/pc-351/workspace/go/dogen/pure",
+		template: "/hoge/go/dogen/pure",
 		mu:       sync.Mutex{},
 	}
 	//最初に長さを決める
