@@ -32,12 +32,6 @@ commands:
           name: Vendoring
           command: go mod download
 
-  test:
-    steps:
-      - run:
-          name: go test
-          command: go test -v ./...
-
   install_golint:
     steps:
       - run:
@@ -67,7 +61,6 @@ jobs:
       - restore_module
       - vendoring
       - save_module
-      - test
       - install_golint
       - install_reviewdog
       - run_reviewdog
