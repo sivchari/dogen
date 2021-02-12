@@ -2,48 +2,6 @@ dogen
  
 "dogen" is a cli tool that provides skeletons for implementing golang layered architecture
 
-``` tree
-.
-├── LICENCE
-├── README.md
-├── echo
-│   ├── domain
-│   │   ├── model
-│   │   │   └── model.tmpl
-│   │   └── repository
-│   │       └── repository.tmpl
-│   ├── infrastructure
-│   │   └── mysql
-│   │       └── repoimpl
-│   │           └── repoimpl.tmpl
-│   ├── interfaces
-│   │   └── handler
-│   │       └── handler.tmpl
-│   └── usecase
-│       └── usecase.tmpl
-├── dogen
-│   └── dogen.go
-├── go.mod
-├── go.sum
-├── main.go
-└── pure
-    ├── domain
-    │   ├── model
-    │   │   └── model.tmpl
-    │   └── repository
-    │       └── repository.tmpl
-    ├── infrastructure
-    │   └── mysql
-    │       └── repoimpl
-    │           └── repoimpl.tmpl
-    ├── interfaces
-    │   └── handler
-    │       └── handler.tmpl
-    └── usecase
-        └── usecase.tmpl
-```
- 
- 
 # Features
 With dogen, you can focus on your development and not get tired of creating, copying and pasting directories.
 
@@ -57,7 +15,7 @@ edit dogen/dogen.go
 Engine = "pure" OR Engine = "echo" (Default is pure.)
 ```
 ```shell
-statik -src=pure OR statik -src=pure (Please match the engine you selected.)
+statik -src=pure OR statik -src=echo (Please match the engine you selected.)
 go build -o dogen
 ```
 
