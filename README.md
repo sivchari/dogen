@@ -73,26 +73,63 @@ go get github.com/sivchari/dogen
 
 # Example
 ```
-dogen -u model
-
 .
+├── LICENCE
+├── Makefile
+├── README.md
 ├── dogen
-└── pkg
-    ├── domain
-    │   ├── model
-    │   │   └── user_model.go
-    │   └── repository
-    │       └── user_repository.go
-    ├── infrastructure
-    │   └── mysql
-    │       └── repoimpl
-    │           └── user_repoimpl.go
-    ├── interfaces
-    │   └── handler
-    │       └── user_handler.go
-    └── usecase
-        └── user_usecase.go
-
+│   ├── dogen.go
+│   └── dogen_test.go
+├── echo
+│   ├── domain
+│   │   ├── model
+│   │   │   └── model.tmpl
+│   │   └── repository
+│   │       └── repository.tmpl
+│   ├── infrastructure
+│   │   └── mysql
+│   │       └── repoimpl
+│   │           └── repoimpl.tmpl
+│   ├── interfaces
+│   │   └── handler
+│   │       └── handler.tmpl
+│   └── usecase
+│       └── usecase.tmpl
+├── example
+│   ├── domain
+│   │   ├── model
+│   │   │   └── user_model.go
+│   │   └── repository
+│   │       └── user_repository.go
+│   ├── infrastructure
+│   │   └── mysql
+│   │       └── repoimpl
+│   │           └── user_repoimpl.go
+│   ├── interfaces
+│   │   └── handler
+│   │       └── user_handler.go
+│   └── usecase
+│       └── user_usecase.go
+├── go.mod
+├── go.sum
+├── main.go
+├── pure
+│   ├── domain
+│   │   ├── model
+│   │   │   └── model.tmpl
+│   │   └── repository
+│   │       └── repository.tmpl
+│   ├── infrastructure
+│   │   └── mysql
+│   │       └── repoimpl
+│   │           └── repoimpl.tmpl
+│   ├── interfaces
+│   │   └── handler
+│   │       └── handler.tmpl
+│   └── usecase
+│       └── usecase.tmpl
+└── statik
+   └── statik.go
 ```
 
 # Note
