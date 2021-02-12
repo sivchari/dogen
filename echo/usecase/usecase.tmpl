@@ -4,8 +4,8 @@ package usecase
 import (
     "context"
 
-    {{ .Model }}M "{{ .Root }}/{{ .Dist }}/domain/model"
-    {{ .Model }}R "{{ .Root }}/{{ .Dist }}/domain/repository"
+    {{ .Model }}M "{{ .Pkg }}/{{ .Dist }}/domain/model"
+    {{ .Model }}R "{{ .Pkg }}/{{ .Dist }}/domain/repository"
 )
 
 type {{ .Model | title }}UseCase interface {

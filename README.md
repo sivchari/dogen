@@ -48,29 +48,22 @@ dogen
 With dogen, you can focus on your development and not get tired of creating, copying and pasting directories.
 
 # Install
+```shell
+git clone git@github.com:sivchari/dogen.git
 ```
-1. 
-go get -u https://github.com/sivchari/dogen
 
-2.
-go get -u github.com/golang/mock/gomock
-go get -u github.com/golang/mock/mockgen
-go get -u github.com/rakyll/statik
-
-OR
-
-go get -u all
-
-3.
 edit dogen/dogen.go
-
+```go
 Engine = "pure" OR Engine = "echo" (Default is pure.)
-
-4.
-statik -src=pure OR statik -src=echo (Please match the engine you selected.)
-
-5. 
+```
+```shell
+statik -src=pure OR statik -src=pure (Please match the engine you selected.)
 go build -o dogen
+```
+
+If you use default setting, please following below
+```shell
+go get github.com/sivchari/dogen
 ```
 
 # Usage
@@ -80,7 +73,7 @@ go build -o dogen
 
 # Example
 ```
-dogen -u model -d pkg  
+dogen -u model
 
 .
 ├── dogen
@@ -123,10 +116,10 @@ Usage of dogen:
 ```
 
 #benchmark
-### CPU : 4
 ```
-BenchmarkRunSynchronous-4                   336                   3894149 ns/op          361212 B/op       6177 allocs/op
-BenchmarkRunAsynchronousGoroutine-4         1292509               916 ns/op              208 B/op          2 allocs/op
+BenchmarkRunSynchronous-4                     87          13434437 ns/op          357120 B/op       6183 allocs/op
+BenchmarkRunAsynchronousGoroutine-4       147633              8387 ns/op              42 B/op          2 allocs/op
+
 ```
 
  

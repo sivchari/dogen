@@ -7,7 +7,6 @@ import (
 	"flag"
 	"fmt"
 	"go/format"
-	"golang.org/x/sync/errgroup"
 	"io"
 	"io/ioutil"
 	"log"
@@ -17,8 +16,10 @@ import (
 	"sync"
 	"text/template"
 
+	"github.com/joho/godotenv"
 	"github.com/rakyll/statik/fs"
 	_ "github.com/sivchari/dogen/statik"
+	"golang.org/x/sync/errgroup"
 )
 
 // dogen Version
@@ -27,17 +28,17 @@ const Version = "v1.3"
 // ShowVersion returns when set version flag.
 var ShowVersion = errors.New("show version")
 
-// Select Template Engine
+// Engine
 const Engine = "pure"
 
-// Extenstion
+// Extension
 const Extension = ".tmpl"
 
 // params command args
 type params struct {
 	Dist  string
 	Model string
-	Root  string
+	Pkg string
 }
 
 // dogen  cli options
@@ -62,7 +63,6 @@ func Run(args []string, outStream io.Writer, errStream io.Writer) error {
 loop:
 	for {
 		eg.Go(func() error {
-			dogen := dogen
 			select {
 			case <-ctx.Done():
 				return nil
@@ -146,15 +146,16 @@ func fill(d string, m string) (*dogen, error) {
 		return nil, err
 	}
 
-	p, _ := os.Getwd()
-	r := strings.Split(p, "/")
-	root := r[len(r)-1]
+	if err := godotenv.Load(".env"); err != nil {
+		panic("error loading .env file")
+	}
+	pkg := os.Getenv("DOGEN_PKG")
 
 	return &dogen{
 		params: params{
 			Dist:  d,
 			Model: lm,
-			Root:  root,
+			Pkg: pkg,
 		},
 		dir:      dir,
 		template: t,

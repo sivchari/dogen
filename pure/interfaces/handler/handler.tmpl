@@ -4,7 +4,7 @@ package handler
 import (
     "net/http"
 
-    {{ .Model }}U "{{ .Root }}/{{ .Dist }}/usecase"
+    {{ .Model }}U "{{ .Pkg }}/{{ .Dist }}/usecase"
 )
 
 type {{ .Model | title }}Handler interface {
