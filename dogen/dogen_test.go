@@ -5,20 +5,20 @@ import (
 	"errors"
 	"golang.org/x/sync/errgroup"
 	"log"
-	"runtime"
 	"sync"
 	"testing"
 )
 
+// FIXME::templateのパスはテストするなら修正必要　
 func BenchmarkRunSynchronous(b *testing.B) {
 	d := dogen{
 		params: params{
 			Dist:  "once_pkg",
 			Model: "user",
-			Root:  "dogen",
+			Pkg:  "dogen",
 		},
-		dir:      "/Users/pc-351/workspace/go/dogen/cmd/once_pkg",
-		template: "/Users/pc-351/workspace/go/dogen/cmd/pure",
+		dir:      "./testdata/once_pkg",
+		template: "/hoge/go/dogen/pure",
 		mu:       sync.Mutex{},
 	}
 	//最初に長さを決める
@@ -38,30 +38,28 @@ func BenchmarkRunAsynchronousGoroutine(b *testing.B) {
 		params: params{
 			Dist:  "routine_pkg",
 			Model: "user",
-			Root:  "dogen",
+			Pkg:  "dogen",
 		},
-		dir:      "/Users/pc-351/workspace/go/dogen/cmd/routine_pkg",
-		template: "/Users/pc-351/workspace/go/dogen/cmd/pure",
+		dir:      "./testdata/routine_pkg",
+		template: "/hoge/go/dogen/pure",
 		mu:       sync.Mutex{},
 	}
 	//最初に長さを決める
 	b.ResetTimer()
 
-	runtime.GOMAXPROCS(runtime.NumCPU())
 	eg, ctx := errgroup.WithContext(context.Background())
 	// Nはコマンド引数から与えられたベンチマーク時間から自動で計算される
 	for i := 0; i < b.N; i++ {
 		for {
 			eg.Go(func() error {
-				dogen := d
 				select {
 				case <-ctx.Done():
 					break
 				default:
-					dogen.mu.Lock()
-					defer dogen.mu.Unlock()
-					if err := dogen.run(); err != nil {
-						return errors.New("[ERROR] Fatal Error: " + err.Error())
+					d.mu.Lock()
+					defer d.mu.Unlock()
+					if err := d.run(); err != nil {
+						return errors.New("[ERROR] fatal error: " + err.Error())
 					}
 					return nil
 				}

@@ -4,7 +4,7 @@ package repository
 import(
     "context"
 
-    {{ .Model }}M "{{ .Root }}/{{ .Dist }}/domain/model"
+    {{ .Model }}M "{{ .Pkg }}/{{ .Dist }}/domain/model"
 )
 
 type {{ .Model | title }}Repository interface {

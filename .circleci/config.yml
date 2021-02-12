@@ -1,0 +1,66 @@
+version: 2.1
+
+executors:
+  go:
+    parameters:
+      go-version:
+        type: string
+    docker:
+      - image: circleci/golang:<<parameters.go-version>>
+        environment:
+          GO111MODULE: "on"
+
+commands:
+  restore_module:
+    steps:
+      - restore_cache:
+          name: Restore go module cahce
+          keys:
+            - mod-{{ checksum "go.sum" }}
+
+  save_module:
+    steps:
+      - save_cache:
+          name: Save go module cache
+          key: mod-{{ checksum "go.sum" }}
+          paths:
+            - /go/pkg/mod
+
+  vendoring:
+    steps:
+      - run:
+          name: Vendoring
+          command: go mod download
+
+  install_golint:
+    steps:
+      - run:
+          name: install golint
+          command: go get -u golang.org/x/lint/golint
+
+  install_reviewdog:
+    steps:
+      - run:
+          name: install reviewdog
+          command: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s -- -b ./bin
+
+  run_reviewdog:
+    steps:
+      - run:
+          name: run review dog
+          command: golint ./... | ./bin/reviewdog -f=golint -diff="git diff FETCH_HEAD" -reporter=github-pr-review
+
+jobs:
+  build:
+    executor:
+      name: go
+      go-version: "1.15.0"
+
+    steps:
+      - checkout
+      - restore_module
+      - vendoring
+      - save_module
+      - install_golint
+      - install_reviewdog
+      - run_reviewdog
