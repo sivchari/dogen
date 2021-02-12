@@ -9,8 +9,6 @@ import (
 	"testing"
 )
 
-// FIXME:: templateを絶対パスで修正しないとテストエラー出る。
-
 func BenchmarkRunSynchronous(b *testing.B) {
 	d := dogen{
 		params: params{
@@ -19,7 +17,7 @@ func BenchmarkRunSynchronous(b *testing.B) {
 			Pkg:  "dogen",
 		},
 		dir:      "./testdata/once_pkg",
-		template: "../pure",
+		template: "/Users/pc-351/workspace/go/dogen/pure",
 		mu:       sync.Mutex{},
 	}
 	//最初に長さを決める
@@ -42,7 +40,7 @@ func BenchmarkRunAsynchronousGoroutine(b *testing.B) {
 			Pkg:  "dogen",
 		},
 		dir:      "./testdata/routine_pkg",
-		template: "../pure",
+		template: "/Users/pc-351/workspace/go/dogen/pure",
 		mu:       sync.Mutex{},
 	}
 	//最初に長さを決める
