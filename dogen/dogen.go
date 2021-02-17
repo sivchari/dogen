@@ -22,16 +22,13 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-// dogen Version
-const Version = "v1.3"
+// Version ...
+const Version = "v0.1.4"
 
 // ShowVersion returns when set version flag.
 var ShowVersion = errors.New("show version")
 
-// Engine
-const Engine = "pure"
-
-// Extension
+// Extension ...
 const Extension = ".tmpl"
 
 // params command args
@@ -45,17 +42,18 @@ type params struct {
 type dogen struct {
 	params   params
 	dir      string
+	gentyp string
 	template string
 	mu       sync.Mutex
 }
 
 // Run mapping and fs.Walk
 func Run(args []string, outStream io.Writer, errStream io.Writer) error {
-	d, m, err := setFlags(args, outStream, errStream)
+	g, d, m, err := setFlags(args, outStream, errStream)
 	if err != nil {
 		return err
 	}
-	dogen, err := fill(d, m)
+	dogen, err := fill(g, d, m)
 	if err != nil {
 		return err
 	}
@@ -83,11 +81,11 @@ loop:
 	return nil
 }
 
-func setFlags(args []string, outStream, errStream io.Writer) (string, string, error) {
+func setFlags(args []string, outStream, errStream io.Writer) (string, string, string, error) {
 
 	var (
 		v    bool
-		m, d string
+		g, m, d string
 	)
 
 	toolName := args[0]
@@ -108,35 +106,39 @@ func setFlags(args []string, outStream, errStream io.Writer) (string, string, er
 	flags.StringVar(&d, "dir", "", dirDescribe)
 	flags.StringVar(&d, "d", "pkg", dirDescribe)
 
+	generateDescribe := "generate type"
+	flags.StringVar(&g, "gen", "", generateDescribe)
+	flags.StringVar(&g, "g", "pkg", generateDescribe)
+
 	if err := flags.Parse(args[1:]); err != nil {
-		return "", "", err
+		return "", "", "", err
 	}
 
 	if v {
 		fmt.Fprintf(outStream, "%s version %s\n", toolName, Version)
-		return "", "", ShowVersion
+		return "", "", "", ShowVersion
 	}
 
 	if len(m) == 0 {
 		msg := "please enter options"
-		return "", "", fmt.Errorf(msg)
+		return "", "", "", fmt.Errorf(msg)
 	}
 
 	dogenArgs := flags.Args()
 	if len(dogenArgs) > 0 {
 		msg := "please enter only one arg"
-		return "", "", fmt.Errorf(msg)
+		return "", "", "", fmt.Errorf(msg)
 	}
 
-	return d, m, nil
+	return g, d, m, nil
 }
 
 // fill mapping commands
-func fill(d string, m string) (*dogen, error) {
+func fill(g, d, m string) (*dogen, error) {
 
 	lm := strings.ToLower(m)
 
-	t, err := filepath.Abs(Engine)
+	t, err := filepath.Abs("tmpl/" + g)
 	if err != nil {
 		return nil, err
 	}
@@ -158,6 +160,7 @@ func fill(d string, m string) (*dogen, error) {
 			Pkg: pkg,
 		},
 		dir:      dir,
+		gentyp: g,
 		template: t,
 	}, nil
 }
@@ -182,12 +185,25 @@ func (dogen *dogen) run() error {
 	}
 
 	err = fs.Walk(statikFS, "/", func(path string, info os.FileInfo, err error) error {
+
+		if ok := strings.Contains(path, dogen.gentyp); !ok {
+			return nil
+		}
+
 		p, err := filepath.Rel(dogen.template, path)
 		if err != nil {
 			return err
 		}
 
-		fp := filepath.Join(dogen.dir, p)
+		jfp := filepath.Join(dogen.dir, p)
+		spfp := strings.Split(jfp, "/")
+		var fp string
+		for _, v := range spfp {
+			if v == dogen.gentyp {
+				continue
+			}
+			fp = fp + "/" + v
+		}
 
 		if info.IsDir() {
 			if err := os.MkdirAll(dogen.dir+fp, 0777); err != nil {
@@ -246,5 +262,6 @@ func (dogen *dogen) run() error {
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
