@@ -11,9 +11,17 @@ import (
 
 func main() {
 	log.SetFlags(0)
-	log.Print(os.Args[0] + "!")
-	if err := dogen.Run(os.Args, os.Stdout, os.Stderr); err != nil && err != flag.ErrHelp && err != dogen.ShowVersion {
+	switch os.Args[1] {
+	case "-d", "-dir", "-g", "-gen", "-m", "-model":
+		log.Print(os.Args[0] + "!")
+	default:
+	}
+	err := dogen.Run(os.Args, os.Stdout, os.Stderr)
+	if err != nil && err != flag.ErrHelp && err != dogen.ShowVersion {
 		log.Fatal(err)
+	}
+	if err == flag.ErrHelp || err == dogen.ShowVersion	{
+		os.Exit(0)
 	}
 	log.Print("1/2 complete")
 	if err := exec.Command("go", "generate", "./...").Run(); err != nil {
