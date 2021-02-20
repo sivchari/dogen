@@ -10,15 +10,6 @@ With dogen, you can focus on your development and not get tired of creating, cop
 git clone git@github.com:sivchari/dogen.git
 ```
 
-edit dogen/dogen.go
-```go
-Engine = "pure" OR Engine = "echo" (Default is pure.)
-```
-```shell
-statik -src=pure OR statik -src=echo (Please match the engine you selected.)
-go build -o dogen
-```
-
 If you use default setting, please following below
 ```shell
 go get github.com/sivchari/dogen
@@ -26,7 +17,7 @@ go get github.com/sivchari/dogen
 
 # Usage
  ``` command line
- dogen -m XXX
+ dogen -g (pure or echo) -m SELECT-MODEL-NAME
  ```
 
 # Example
@@ -100,6 +91,10 @@ Usage of dogen:
         output directory (default "pkg")
   -dir string
         output directory
+  -g string
+        generate type (default "pkg")
+  -gen string
+        generate type
   -m string
         model name
   -model string
@@ -107,7 +102,6 @@ Usage of dogen:
   -v    print dogen version information
   -version
         print dogen version information
-ʕ◔ϖ◔ʔ 🍭 
 ```
 
 #benchmark
