@@ -20,7 +20,7 @@ func main() {
 	if err != nil && err != flag.ErrHelp && err != dogen.ShowVersion {
 		log.Fatal(err)
 	}
-	if err == flag.ErrHelp || err == dogen.ShowVersion	{
+	if err == flag.ErrHelp || err == dogen.ShowVersion {
 		os.Exit(0)
 	}
 	log.Print("1/2 complete")
