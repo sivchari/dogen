@@ -35,14 +35,14 @@ const Extension = ".tmpl"
 type params struct {
 	Dist  string
 	Model string
-	Pkg string
+	Pkg   string
 }
 
 // dogen  cli options
 type dogen struct {
 	params   params
 	dir      string
-	gentyp string
+	gentyp   string
 	template string
 	mu       sync.Mutex
 }
@@ -84,7 +84,7 @@ loop:
 func setFlags(args []string, outStream, errStream io.Writer) (string, string, string, error) {
 
 	var (
-		v    bool
+		v       bool
 		g, m, d string
 	)
 
@@ -157,10 +157,10 @@ func fill(g, d, m string) (*dogen, error) {
 		params: params{
 			Dist:  d,
 			Model: lm,
-			Pkg: pkg,
+			Pkg:   pkg,
 		},
 		dir:      dir,
-		gentyp: g,
+		gentyp:   g,
 		template: t,
 	}, nil
 }
