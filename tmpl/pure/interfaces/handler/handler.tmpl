@@ -26,28 +26,28 @@ func New{{ .Model | title }}Handler({{ .Model }}U {{ .Model }}U.{{ .Model | titl
 }
 
 // HandleSelect
-func ({{ .Model }}H {{ .Model }}Handler) HandleSelect() http.HandlerFunc {
+func ({{ .Model }}H *{{ .Model }}Handler) HandleSelect() http.HandlerFunc {
     return func(writer http.ResponseWriter, request *http.Request) {
         panic("do something")
     }
 }
 
 // HandleInsert
-func ({{ .Model }}H {{ .Model }}Handler) HandleInsert() http.HandlerFunc {
+func ({{ .Model }}H *{{ .Model }}Handler) HandleInsert() http.HandlerFunc {
     return func(writer http.ResponseWriter, request *http.Request) {
         panic("do something")
     }
 }
 
 // HandleUpdate
-func ({{ .Model }}H {{ .Model }}Handler) HandleUpdate() http.HandlerFunc {
+func ({{ .Model }}H *{{ .Model }}Handler) HandleUpdate() http.HandlerFunc {
     return func(writer http.ResponseWriter, request *http.Request) {
         panic("do something")
     }
 }
 
 // HandleDelete
-func ({{ .Model }}H {{ .Model }}Handler) HandleDelete() http.HandlerFunc {
+func ({{ .Model }}H *{{ .Model }}Handler) HandleDelete() http.HandlerFunc {
     return func(writer http.ResponseWriter, request *http.Request) {
         panic("do something")
     }

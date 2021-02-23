@@ -28,7 +28,7 @@ func New{{ .Model | title }}Usecase({{ .Model }}R {{ .Model }}R.{{ .Model | titl
 
 
 // Select
-func ({{ .Model }}U {{ .Model }}UseCase) Select(ctx context.Context) ([]*{{ .Model }}M.{{ .Model | title }}, error) {
+func ({{ .Model }}U *{{ .Model }}UseCase) Select(ctx context.Context) ([]*{{ .Model }}M.{{ .Model | title }}, error) {
     {{ .Model }}s, err := {{ .Model }}U.{{ .Model }}Repository.Select(ctx)
     if err != nil {
       return nil, err
@@ -37,7 +37,7 @@ func ({{ .Model }}U {{ .Model }}UseCase) Select(ctx context.Context) ([]*{{ .Mod
 }
 
 // Insert
-func ({{ .Model }}U {{ .Model }}UseCase) Insert(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error {
+func ({{ .Model }}U *{{ .Model }}UseCase) Insert(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error {
     err := {{ .Model }}U.{{ .Model }}Repository.Insert(ctx, entity)
     if err != nil {
       return err
@@ -46,7 +46,7 @@ func ({{ .Model }}U {{ .Model }}UseCase) Insert(ctx context.Context, entity *{{ 
 }
 
 // Update
-func ({{ .Model }}U {{ .Model }}UseCase) Update(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error {
+func ({{ .Model }}U *{{ .Model }}UseCase) Update(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error {
     err := {{ .Model }}U.{{ .Model }}Repository.Update(ctx, entity)
     if err != nil {
       return err
@@ -55,7 +55,7 @@ func ({{ .Model }}U {{ .Model }}UseCase) Update(ctx context.Context, entity *{{ 
 }
 
 // Delete
-func ({{ .Model }}U {{ .Model }}UseCase) Delete(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error {
+func ({{ .Model }}U *{{ .Model }}UseCase) Delete(ctx context.Context, entity *{{ .Model }}M.{{ .Model | title }}) error {
     err := {{ .Model }}U.{{ .Model }}Repository.Delete(ctx, entity)
     if err != nil {
       return err
