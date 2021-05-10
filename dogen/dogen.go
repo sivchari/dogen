@@ -23,7 +23,7 @@ import (
 )
 
 // Version ...
-const Version = "v0.1.4"
+const Version = "v0.1.7"
 
 // ShowVersion returns when set version flag.
 var ShowVersion = errors.New("show version")
