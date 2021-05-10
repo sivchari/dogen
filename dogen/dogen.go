@@ -106,9 +106,9 @@ func setFlags(args []string, outStream, errStream io.Writer) (string, string, st
 	flags.StringVar(&d, "dir", "", dirDescribe)
 	flags.StringVar(&d, "d", "pkg", dirDescribe)
 
-	generateDescribe := "generate type"
+	generateDescribe := "generate type (echo or pure)"
 	flags.StringVar(&g, "gen", "", generateDescribe)
-	flags.StringVar(&g, "g", "pkg", generateDescribe)
+	flags.StringVar(&g, "g", "echo", generateDescribe)
 
 	if err := flags.Parse(args[1:]); err != nil {
 		return "", "", "", err

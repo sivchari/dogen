@@ -1,6 +1,6 @@
-dogen 
- 
-"dogen" is a cli tool that provides skeletons for implementing golang layered architecture
+# dogen
+
+## `dogen` is a cli tool that provides skeletons for implementing golang layered architecture
 
 # Features
 With dogen, you can focus on your development and not get tired of creating, copying and pasting directories.
@@ -15,70 +15,162 @@ If you use default setting, please following below
 go get github.com/sivchari/dogen
 ```
 
-# Usage
- ``` command line
- dogen -g (pure or echo) -m SELECT-MODEL-NAME
- ```
-
-# Example
+# Tree
 ```
 .
 ├── LICENCE
-├── Makefile
 ├── README.md
 ├── dogen
-│   ├── dogen.go
-│   └── dogen_test.go
-├── echo
-│   ├── domain
-│   │   ├── model
-│   │   │   └── model.tmpl
-│   │   └── repository
-│   │       └── repository.tmpl
-│   ├── infrastructure
-│   │   └── mysql
-│   │       └── repoimpl
-│   │           └── repoimpl.tmpl
-│   ├── interfaces
-│   │   └── handler
-│   │       └── handler.tmpl
-│   └── usecase
-│       └── usecase.tmpl
-├── example
-│   ├── domain
-│   │   ├── model
-│   │   │   └── user_model.go
-│   │   └── repository
-│   │       └── user_repository.go
-│   ├── infrastructure
-│   │   └── mysql
-│   │       └── repoimpl
-│   │           └── user_repoimpl.go
-│   ├── interfaces
-│   │   └── handler
-│   │       └── user_handler.go
-│   └── usecase
-│       └── user_usecase.go
+│   └── dogen.go
 ├── go.mod
 ├── go.sum
 ├── main.go
-├── pure
-│   ├── domain
-│   │   ├── model
-│   │   │   └── model.tmpl
-│   │   └── repository
-│   │       └── repository.tmpl
-│   ├── infrastructure
-│   │   └── mysql
-│   │       └── repoimpl
-│   │           └── repoimpl.tmpl
-│   ├── interfaces
-│   │   └── handler
-│   │       └── handler.tmpl
-│   └── usecase
-│       └── usecase.tmpl
-└── statik
-   └── statik.go
+├── statik
+│   └── statik.go
+└── tmpl
+    ├── echo
+    │   ├── domain
+    │   │   ├── model
+    │   │   │   └── model.tmpl
+    │   │   └── repository
+    │   │       └── repository.tmpl
+    │   ├── infrastructure
+    │   │   └── mysql
+    │   │       └── repoimpl
+    │   │           └── repoimpl.tmpl
+    │   ├── interfaces
+    │   │   └── handler
+    │   │       └── handler.tmpl
+    │   └── usecase
+    │       └── usecase.tmpl
+    └── pure
+        ├── domain
+        │   ├── model
+        │   │   └── model.tmpl
+        │   └── repository
+        │       └── repository.tmpl
+        ├── infrastructure
+        │   └── mysql
+        │       └── repoimpl
+        │           └── repoimpl.tmpl
+        ├── interfaces
+        │   └── handler
+        │       └── handler.tmpl
+        └── usecase
+            └── usecase.tmpl
+```
+
+# Usage
+```sh
+cp .env.example .env
+```
+
+## Set your go mod path to .env
+```env
+DOGEN_PKG=github.com/xxx/yyy
+```
+
+## Generate skelton
+```sh
+dogen -m user
+```
+
+```sh
+pkg/
+├── domain
+│   ├── model
+│   │   └── user_model.go
+│   └── repository
+│       ├── mock_repository
+│       │   └── mock_user_repository.go
+│       └── user_repository.go
+├── infrastructure
+│   └── mysql
+│       └── repoimpl
+│           ├── mock_repoimpl
+│           │   └── mock_user_repoimpl.go
+│           └── user_repoimpl.go
+├── interfaces
+│   └── handler
+│       ├── mock_handler
+│       │   └── mock_user_handler.go
+│       └── user_handler.go
+└── usecase
+    ├── mock_usecase
+    │   └── mock_user_usecase.go
+    └── user_usecase.go
+```
+
+## File content (user_handler.go)
+```go
+//go:generate mockgen -source=$GOFILE -destination=mock_$GOPACKAGE/mock_$GOFILE
+package handler
+
+import (
+	"github.com/labstack/echo/v4"
+
+	userU "sample/pkg/usecase"
+)
+
+type UserHandler interface {
+	HandleSelect(c echo.Context) echo.HandlerFunc
+	HandleInsert(c echo.Context) echo.HandlerFunc
+	HandleUpdate(c echo.Context) echo.HandlerFunc
+	HandleDelete(c echo.Context) echo.HandlerFunc
+}
+
+type userHandler struct {
+	userUseCase userU.UserUseCase
+}
+
+// NewUserHandler
+func NewUserHandler(userU userU.UserUseCase) UserHandler {
+	return &userHandler{
+		userUseCase: userU,
+	}
+}
+
+// HandleSelect
+func (userH *userHandler) HandleSelect(c echo.Context) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		panic("do something")
+		return nil
+	}
+}
+
+// HandleInsert
+func (userH *userHandler) HandleInsert(c echo.Context) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		panic("do something")
+		return nil
+	}
+}
+
+// HandleUpdate
+func (userH *userHandler) HandleUpdate(c echo.Context) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		panic("do something")
+		return nil
+	}
+}
+
+// HandleDelete
+func (userH *userHandler) HandleDelete(c echo.Context) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		panic("do something")
+		return nil
+	}
+}
+
+// UserRequest
+type UserRequest struct {
+	// Need to implement field
+}
+
+// UserResponse
+type UserResponse struct {
+	// Need to implement field
+}
 ```
 
 # Note
@@ -88,20 +180,20 @@ go get github.com/sivchari/dogen
 ```
 Usage of dogen:
   -d string
-        output directory (default "pkg")
+    	output directory (default "pkg")
   -dir string
-        output directory
+    	output directory
   -g string
-        generate type (default "pkg")
+    	generate type (echo or pure) (default "echo")
   -gen string
-        generate type
+    	generate type (echo or pure)
   -m string
-        model name
+    	model name
   -model string
-        model name
-  -v    print dogen version information
+    	model name
+  -v	print dogen version information
   -version
-        print dogen version information
+    	print dogen version information
 ```
 
 #benchmark
@@ -111,11 +203,10 @@ BenchmarkRunAsynchronousGoroutine-4       147633              8387 ns/op        
 
 ```
 
- 
 # Author
 
-##sivchari
+## sivchari
 ## [Twitter](https://twitter.com/sivchari)
- 
+
 # License
 This software is released under the MIT License, see LICENSE.
