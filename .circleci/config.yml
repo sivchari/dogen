@@ -44,11 +44,11 @@ commands:
           name: install reviewdog
           command: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s -- -b ./bin
 
-  run_reviewdog:
+  run_lint:
     steps:
       - run:
           name: run review dog
-          command: golint ./... | ./bin/reviewdog -f=golint -diff="git diff FETCH_HEAD" -reporter=github-pr-review
+          command: golint ./...
 
 jobs:
   build:
@@ -63,4 +63,5 @@ jobs:
       - save_module
       - install_golint
       - install_reviewdog
-      - run_reviewdog
+      - run_lint
+      # - run_reviewdog

@@ -12,6 +12,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"runtime/debug"
 	"strings"
 	"sync"
 	"text/template"
@@ -115,7 +116,13 @@ func setFlags(args []string, outStream, errStream io.Writer) (string, string, st
 	}
 
 	if v {
-		fmt.Fprintf(outStream, "%s version %s\n", toolName, Version)
+		if bi, exists := debug.ReadBuildInfo(); exists {
+			fmt.Println(bi.Main.Version)
+		} else {
+			log.Printf("No version information found. Make sure to use " +
+				"GO111MODULE=on when running 'go get' in order to use specific " +
+				"version of the binary.")
+		}
 		return "", "", "", ShowVersion
 	}
 
